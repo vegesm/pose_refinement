@@ -1,4 +1,4 @@
-#Temporal Smoothing for 3D Human Pose Estimation and Localization for Occluded People
+# Temporal Smoothing for 3D Human Pose Estimation and Localization for Occluded People
 This repository contains the code for the paper "Temporal Smoothing for 3D Human Pose
 Estimation and Localization for Occluded People".
 
