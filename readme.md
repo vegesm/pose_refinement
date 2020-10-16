@@ -6,7 +6,7 @@ Estimation and Localization for Occluded People".
 
 The code was tested with the following libraries:
 
-- PyTorch 1.1.0
+- PyTorch 1.5.1
 - numpy 1.16.4
 - scipy 0.18.1
 

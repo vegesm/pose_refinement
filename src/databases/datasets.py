@@ -161,7 +161,7 @@ class ConcatPoseDataset(FlippableDataset, TemporalAugmentMixin):
         self.data1 = data1
         self.data2 = data2
 
-        fields = ['poses2d', 'poses3d', 'pred_cdepths', 'fx', 'fy', 'cx', 'cy', 'valid_2d_pred']
+        fields = ['poses2d', 'poses3d',  'fx', 'fy', 'cx', 'cy', 'valid_2d_pred']
         for field in fields:
             field1 = data1.__getattribute__(field)
             field2 = data2.__getattribute__(field)
@@ -183,7 +183,7 @@ class ConcatPoseDataset(FlippableDataset, TemporalAugmentMixin):
         else:
             width = 2048
 
-        sample = {'pose2d': self.poses2d[ind], 'pose3d': self.poses3d[ind], 'pred_cdepth': self.pred_cdepths[ind],
+        sample = {'pose2d': self.poses2d[ind], 'pose3d': self.poses3d[ind], 
                   'index': ind, 'valid_pose': self.valid_2d_pred[ind], 'cx': self.cx[ind], 'width': width}
 
         return sample

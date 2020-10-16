@@ -10,14 +10,17 @@ from training.torch_tools import torch_train
 from util.misc import save, ensuredir
 
 
+
 def calc_loss(model, batch, config):
     if config['model']['loss'] == 'l1_nan':
         pose2d = batch['temporal_pose2d']
         gt_3d = batch['pose3d']
-
-        # different handling for numpy and PyTorch inputs
+        if config['ignore_invisible']:
+            pose2d = pose2d[batch['valid_pose']]
+            gt_3d = gt_3d[batch['valid_pose']]
+            
         if isinstance(pose2d, torch.Tensor):
-            inds = torch.all(torch.all(1 - (pose2d != pose2d), dim=(-1)), dim=-1)
+            inds = torch.all(torch.all(~torch.isnan(pose2d), dim=(-1)), dim=-1)
             pose2d = pose2d[inds]
             gt_3d = gt_3d[inds]
             pose2d = pose2d.to('cuda')
@@ -32,6 +35,9 @@ def calc_loss(model, batch, config):
     elif config['model']['loss'] == 'l1':
         pose2d = batch['temporal_pose2d']
         gt_3d = batch['pose3d']
+        if config['ignore_invisible']:
+            pose2d = pose2d[batch['valid_pose']]
+            gt_3d = gt_3d[batch['valid_pose']]
         pose2d = pose2d.to('cuda')
         gt_3d = gt_3d.to('cuda')
 
@@ -144,7 +150,8 @@ def main(output_path):
         },
 
         # dataset
-        'train_data': 'mpii_train',
+        'ignore_invisible': True,
+        'train_data': 'mpii+muco',
         'pose2d_type': 'hrnet',
         'pose3d_scaling': 'normal',
         'megadepth_type': 'megadepth_at_hrnet',

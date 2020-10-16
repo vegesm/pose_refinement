@@ -440,7 +440,7 @@ def keep_hrnet_c14(data):
 
 def zero_and_log_hrnet_c14(data):
     data = keep_hrnet_c14(np.log(data))
-    data[np.isnan(data)] = 0
+    data[np.isnan(data)] = 2
     return data
 
 
