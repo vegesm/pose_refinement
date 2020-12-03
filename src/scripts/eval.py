@@ -70,8 +70,7 @@ def load_model(model_folder):
 
 
 def get_dataset(config):
-    data = PersonStackedMuPoTsDataset(config['pose2d_type'], config.get('pose3d_scaling', 'normal'),
-                                      pose_validity='all')
+    data = PersonStackedMuPoTsDataset(config['pose2d_type'], config.get('pose3d_scaling', 'normal'), pose_validity='all')
     return data
 
 

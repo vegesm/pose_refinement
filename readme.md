@@ -1,6 +1,8 @@
 # Temporal Smoothing for 3D Human Pose Estimation and Localization for Occluded People
 This repository contains the code for the paper "Temporal Smoothing for 3D Human Pose
-Estimation and Localization for Occluded People".
+Estimation and Localization for Occluded People" [link](https://arxiv.org/abs/2011.00250).
+
+![](architecture.png)
 
 ## Requirements
 
@@ -59,3 +61,34 @@ root_dir/src$ python3 scripts/eval.py -r ../output
 ### Muco-Temp
 
 To save space, the frames of the MuCo-Temp dataset are not included, only the pregenerated 2D pose estimations. If you need the frames, you can use `generate_muco_temp.py` to recreate them. You'll need the MPII-3DHP dataset downloaded.
+
+## Inference on videos
+
+To run the model on videos, you have to get Detectron2 and HR-Net. The following script downloads them and creates a Conda environment with all the necessary dependencies:
+
+```bash
+(base) root_dir$ ./install_dependencies
+```
+
+You also need to download the [pretrained models](https://drive.google.com/file/d/1IXtjAiePbyNDHjWZ-VyFkTZlVdrnwJ7z/view?usp=sharing) and unzip them in the root directory. Once done, you can create predictions using the following command:
+
+```
+(base) root_dir$ conda activate pose-refinement
+(pose-refinement) root_dir$ cd src
+(pose-refinement) root_dir/src$ python scripts/predict.py -r video.mp4 output.pkl
+```
+
+The `-r` switch controls whether to use pose refinement or not. If you have the camera calibration parameters you can also provide them using the `-f`, `-cx/-cy` arguments.
+
+## Citatation
+
+```
+@InProceedings{veges2020temporal,
+  author="V{\'e}ges, M. and L{\H{o}}rincz, A.",
+  title="Temporal Smoothing for 3D Human Pose Estimation and Localization for Occluded  People",
+  booktitle="Neural Information Processing",
+  year="2020",
+  pages="557--568",
+}
+```
+

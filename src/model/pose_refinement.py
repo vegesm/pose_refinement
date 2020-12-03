@@ -148,7 +148,6 @@ def optimize_poses(pred3d, data, _config, **kwargs):
         poses_init = abs_to_hiprel(pred3d[inds].copy(), joint_set).astype('float32') / 1000
 
         # interpolate invisible poses, if required
-        visible_poses = data.good_poses[inds]
         poses_pred = poses_init.copy()
 
         kp_score = np.mean(data.poses2d[inds, :, 2], axis=-1)
